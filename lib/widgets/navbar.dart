@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:company_home/widgets/layout/responsive.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 /// 홈페이지 상단 내비게이션바
 class Navbar extends StatelessWidget {
@@ -8,7 +8,11 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Responsive.isMobile(context) ? MobileNav() : DesktopNav();
+    return ScreenTypeLayout.builder(
+      breakpoints: ScreenBreakpoints(desktop: 800, tablet: 600, watch: 0),
+      mobile: (context) => MobileNav(),
+      desktop: (context) => DesktopNav(),
+    );
 
     /// isMobile => MobileNav : 로고 + 햄버거 버튼
     /// !isMobile => DesktopNav : 로고 + 메뉴 텍스트 전체
@@ -37,7 +41,7 @@ class DesktopNav extends StatelessWidget {
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () => context.go('/'),
-                child: Image.asset('assets/img/logo_gg.png', width: 120),
+                child: Image.asset('assets/img/logo.png', width: 120),
 
                 /// 회사 로고 이미지
               ),
@@ -68,17 +72,7 @@ class DesktopNav extends StatelessWidget {
   }
 }
 
-/// 모바일 화면일 때 보여줄 내비게이션바
-class MobileNav extends StatelessWidget {
-  const MobileNav({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-/// _NavItem = 메뉴 텍스트들 : Hover 효과, 서브메뉴 출력
+/// 모바일이 아닌 화면일 때 : _NavItem = 메뉴 텍스트들 : Hover 효과, 서브메뉴 출력
 class _NavItem extends StatefulWidget {
   final String label;
   final String path;
@@ -183,3 +177,296 @@ class _NavItemState extends State<_NavItem> {
     );
   }
 }
+
+/// 모바일 화면일 때 보여줄 내비게이션바
+class MobileNav extends StatelessWidget {
+  const MobileNav({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const navBarHeight = 100.0;
+
+    return AppBar(
+      toolbarHeight: navBarHeight,
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leadingWidth: 150,
+      leading: GestureDetector(
+        onTap: () => context.go('/'), // 로고 누르면 홈으로 이동
+        child: Row(
+          children: [
+            const SizedBox(width: 30),
+            Image.asset('assets/img/logo.png', width: 100),
+          ],
+        ),
+      ),
+      actions: [
+        Builder(
+          builder:
+              (context) => IconButton(
+                icon: const Icon(Icons.menu, color: Colors.black),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer(); // 햄버거 버튼 누르면 drawer 열기
+                },
+              ),
+        ),
+        const SizedBox(width: 30),
+      ],
+    );
+  }
+}
+
+/// 모바일 화면일 때 햄버거 버튼을 눌렀을 때 나오는 Drawer
+class MobileDrawer extends StatelessWidget {
+  const MobileDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      width: 200,
+      backgroundColor: Colors.white,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          SizedBox(
+            height: 70,
+            child: DrawerHeader(
+              decoration: BoxDecoration(color: Color(0xFFD4373C)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '메뉴',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'Paperlogy',
+                      fontWeight: FontWeight.w700,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // 열려있는 drawer를 닫아줌
+                    },
+                    icon: const Icon(Icons.close_rounded, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text(
+              '홈',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Paperlogy',
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            onTap: () {
+              context.go('/');
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: const Text(
+              '핵심역량',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Paperlogy',
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            onTap: () {
+              context.go('/');
+              Navigator.pop(context);
+            },
+          ),
+          ExpansionTile(
+            title: const Text(
+              '사업분야',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Paperlogy',
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            children: [
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '스튜디오',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '첨단강의실',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '복합학습공간',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '지역혁신플랫폼',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+          ListTile(
+            title: const Text(
+              '고객지원',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Paperlogy',
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            onTap: () {
+              context.go('/service');
+              Navigator.pop(context);
+            },
+          ),
+          ExpansionTile(
+            title: const Text(
+              '회사소개',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Paperlogy',
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            children: [
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '회사개요',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '포트폴리오',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                tileColor: const Color.fromARGB(255, 255, 240, 240),
+                title: const Text(
+                  '오시는길',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Paperlogy',
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                onTap: () {
+                  context.go('/business/studio');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 클래스로 떼려다가 맘.... 나중에 하자.
+// class _ListTile extends StatelessWidget {
+//   final String name;
+//   final String path;
+
+//   const _ListTile({required this.name, required this.path, super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//       title: Text(
+//         name,
+//         style: TextStyle(
+//           fontSize: 16,
+//           fontFamily: 'Paperlogy',
+//           fontWeight: FontWeight.w500,
+//           decoration: TextDecoration.none,
+//         ),
+//       ),
+//       onTap: () {
+//         context.go(path);
+//         Navigator.pop(context);
+//       },
+//     );
+//   }
+// }
