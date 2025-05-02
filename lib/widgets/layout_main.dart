@@ -45,7 +45,9 @@ class _NavbarDelegate extends SliverPersistentHeaderDelegate {
 /// 각 섹션을 슬라이드 애니메이션으로 보여주는 위젯
 class SlideInSection extends StatefulWidget {
   final List<Widget> children;
-  const SlideInSection({required this.children, super.key});
+  final String? alignment;
+
+  const SlideInSection({required this.children, this.alignment, super.key});
 
   @override
   State<SlideInSection> createState() => _SlideInSectionState();
@@ -76,6 +78,10 @@ class _SlideInSectionState extends State<SlideInSection>
               ? Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment:
+                    widget.alignment == 'left'
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center,
                 children: widget.children,
               )
               : const SizedBox.shrink(),

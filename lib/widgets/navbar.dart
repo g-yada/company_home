@@ -13,9 +13,6 @@ class Navbar extends StatelessWidget {
       mobile: (context) => MobileNav(),
       desktop: (context) => DesktopNav(),
     );
-
-    /// isMobile => MobileNav : 로고 + 햄버거 버튼
-    /// !isMobile => DesktopNav : 로고 + 메뉴 텍스트 전체
   }
 }
 
