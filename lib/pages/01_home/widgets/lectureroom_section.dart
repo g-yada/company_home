@@ -63,7 +63,7 @@ class LectureRoom extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 double maxWidth = constraints.maxWidth;
-                double cardWidth = 400;
+                double cardWidth = 380;
                 return Wrap(
                   spacing: 30, // 좌우 간격
                   runSpacing: 30, // 위아래 간격
