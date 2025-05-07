@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:company_home/widgets/index.dart';
 import 'widgets/index.dart';
+import 'package:company_home/common/index.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return AppLayout(
-      children: const [
-        HeroSection(),
+      scrollController: scrollController,
+      children: [
+        Container(key: ScrollService.heroKey, child: HeroSection()),
         ContentSection(),
         LectureroomSection(),
         OnetouchSection(),

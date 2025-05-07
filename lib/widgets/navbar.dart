@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:company_home/common/index.dart';
 
 /// 홈페이지 상단 내비게이션바
 class Navbar extends StatelessWidget {
@@ -29,7 +30,16 @@ class DesktopNav extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 120),
         height: navBarHeight,
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,7 +199,16 @@ class MobileNav extends StatelessWidget {
       elevation: 0,
       leadingWidth: 150,
       leading: GestureDetector(
-        onTap: () => context.go('/'), // 로고 누르면 홈으로 이동
+        onTap: () {
+          final context = ScrollService.heroKey.currentContext;
+          if (context != null) {
+            Scrollable.ensureVisible(
+              context,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        }, // 로고 누르면 홈으로 이동
         child: Row(
           children: [
             const SizedBox(width: 30),
@@ -321,7 +340,7 @@ class MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  context.go('/business/studio');
+                  context.go('/business/smartclass');
                   Navigator.pop(context);
                 },
               ),
@@ -337,7 +356,7 @@ class MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  context.go('/business/studio');
+                  context.go('/business/hybrid');
                   Navigator.pop(context);
                 },
               ),
@@ -353,7 +372,7 @@ class MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  context.go('/business/studio');
+                  context.go('/business/platform');
                   Navigator.pop(context);
                 },
               ),
@@ -397,7 +416,7 @@ class MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  context.go('/business/studio');
+                  context.go('/about');
                   Navigator.pop(context);
                 },
               ),
@@ -413,7 +432,7 @@ class MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  context.go('/business/studio');
+                  context.go('/about/portfolio');
                   Navigator.pop(context);
                 },
               ),
@@ -429,7 +448,7 @@ class MobileDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  context.go('/business/studio');
+                  context.go('/about/contact');
                   Navigator.pop(context);
                 },
               ),

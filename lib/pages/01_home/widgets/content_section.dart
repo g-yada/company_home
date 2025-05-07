@@ -28,7 +28,7 @@ class DesktopContents extends StatelessWidget {
           width: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/img/content.jpg'),
+              image: AssetImage('assets/img/content.webp'),
               fit: BoxFit.cover,
               alignment: Alignment(0, -0.5),
             ),
@@ -89,7 +89,7 @@ class MobileContents extends StatelessWidget {
           width: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/img/content.jpg'),
+              image: AssetImage('assets/img/content.webp'),
               fit: BoxFit.cover,
               alignment: Alignment.center,
             ),

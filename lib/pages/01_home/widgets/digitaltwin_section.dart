@@ -12,6 +12,5 @@ class DigitaltwinSection extends StatelessWidget {
       height: 700,
       child: Center(child: Text('디지털 트윈 시뮬레이션 설계')),
     );
-    ;
   }
 }

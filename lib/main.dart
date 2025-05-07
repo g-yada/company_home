@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'routes/app_routes.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() {
+  usePathUrlStrategy();
   runApp(const MyApp());
 }
 

@@ -28,7 +28,7 @@ class DesktopHero extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/img/hero_img.png'),
+          image: AssetImage('assets/img/hero_img.webp'),
           fit: BoxFit.none,
           scale: 1.5,
           alignment: Alignment(0.7, 0),
@@ -103,7 +103,7 @@ class TabletHero extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/img/hero_img.png'),
+          image: AssetImage('assets/img/hero_img.webp'),
           fit: BoxFit.none,
           scale: 1.5,
           alignment: Alignment(0.9, 0),
@@ -181,7 +181,7 @@ class MobileHero extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-              image: AssetImage('assets/img/hero_img.png'),
+              image: AssetImage('assets/img/hero_img.webp'),
               fit: BoxFit.contain,
               alignment: Alignment.centerRight,
             ),

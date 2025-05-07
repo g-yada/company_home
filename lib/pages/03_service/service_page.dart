@@ -1,10 +1,19 @@
+import 'package:company_home/pages/03_service/widgets/service_form.dart';
 import 'package:flutter/material.dart';
+import 'package:company_home/widgets/index.dart';
 
 class ServicePage extends StatelessWidget {
   const ServicePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return AppLayout(
+      children: const [
+        SizedBox(height: 100),
+        ServiceForm(),
+        SizedBox(height: 100),
+        Footer(),
+      ],
+    );
   }
 }
