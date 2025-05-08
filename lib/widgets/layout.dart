@@ -16,7 +16,7 @@ class AppLayout extends StatelessWidget {
         controller: scrollController,
         slivers: [
           SliverPersistentHeader(delegate: _NavbarDelegate(), pinned: true),
-          SliverList(delegate: SliverChildListDelegate(children)),
+          SliverToBoxAdapter(child: Column(children: children)),
         ],
       ),
     );

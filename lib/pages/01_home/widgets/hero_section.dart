@@ -8,7 +8,7 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      breakpoints: ScreenBreakpoints(desktop: 1500, tablet: 1190, watch: 0),
+      breakpoints: ScreenBreakpoints(desktop: 1400, tablet: 1000, watch: 0),
       mobile: (context) => MobileHero(),
       tablet: (context) => TabletHero(),
       desktop: (context) => DesktopHero(),
@@ -28,8 +28,8 @@ class DesktopHero extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/img/hero_img.webp'),
-          fit: BoxFit.none,
+          image: AssetImage('assets/img/hero_img.png'),
+          fit: BoxFit.fitHeight,
           scale: 1.5,
           alignment: Alignment(0.7, 0),
         ),
@@ -103,8 +103,8 @@ class TabletHero extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/img/hero_img.webp'),
-          fit: BoxFit.none,
+          image: AssetImage('assets/img/hero_img.png'),
+          fit: BoxFit.fitHeight,
           scale: 1.5,
           alignment: Alignment(0.9, 0),
         ),
@@ -181,7 +181,7 @@ class MobileHero extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-              image: AssetImage('assets/img/hero_img.webp'),
+              image: AssetImage('assets/img/hero_img.png'),
               fit: BoxFit.contain,
               alignment: Alignment.centerRight,
             ),

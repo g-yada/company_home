@@ -47,7 +47,23 @@ class DesktopNav extends StatelessWidget {
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => context.go('/'),
+                onTap: () {
+                  context.go('/');
+
+                  Future.delayed(const Duration(milliseconds: 300), () {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      final targetContext =
+                          ScrollService.heroKey.currentContext;
+                      if (targetContext != null) {
+                        Scrollable.ensureVisible(
+                          targetContext,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    });
+                  });
+                }, // 로고 누르면 홈으로 이동
                 child: Image.asset('assets/img/logo.png', width: 120),
 
                 /// 회사 로고 이미지
@@ -55,7 +71,26 @@ class DesktopNav extends StatelessWidget {
             ),
             Row(
               children: [
-                const _NavItem(label: '핵심역량', path: '/'),
+                _NavItem(
+                  label: '핵심역량',
+                  onTap: () {
+                    context.go('/');
+
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        final targetContext =
+                            ScrollService.coreKey.currentContext;
+                        if (targetContext != null) {
+                          Scrollable.ensureVisible(
+                            targetContext,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      });
+                    });
+                  },
+                ),
                 const SizedBox(width: 38),
                 const _NavItem(
                   label: '사업분야',
@@ -82,10 +117,16 @@ class DesktopNav extends StatelessWidget {
 /// 모바일이 아닌 화면일 때 : _NavItem = 메뉴 텍스트들 : Hover 효과, 서브메뉴 출력
 class _NavItem extends StatefulWidget {
   final String label;
-  final String path;
+  final String? path;
+  final VoidCallback? onTap;
   final List<String>? submenuItems;
 
-  const _NavItem({required this.label, required this.path, this.submenuItems});
+  const _NavItem({
+    required this.label,
+    this.path,
+    this.onTap,
+    this.submenuItems,
+  });
 
   @override
   State<_NavItem> createState() => _NavItemState();
@@ -111,7 +152,13 @@ class _NavItemState extends State<_NavItem> {
             Align(
               alignment: Alignment.center,
               child: GestureDetector(
-                onTap: () => context.go(widget.path),
+                onTap: () {
+                  if (widget.onTap != null) {
+                    widget.onTap!();
+                  } else if (widget.path != null) {
+                    context.go(widget.path!);
+                  }
+                },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -200,14 +247,18 @@ class MobileNav extends StatelessWidget {
       leadingWidth: 150,
       leading: GestureDetector(
         onTap: () {
-          final context = ScrollService.heroKey.currentContext;
-          if (context != null) {
-            Scrollable.ensureVisible(
-              context,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-            );
-          }
+          context.go('/');
+
+          Future.delayed(const Duration(milliseconds: 300), () {
+            final targetContext = ScrollService.heroKey.currentContext;
+            if (targetContext != null) {
+              Scrollable.ensureVisible(
+                targetContext,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            }
+          });
         }, // 로고 누르면 홈으로 이동
         child: Row(
           children: [
@@ -283,6 +334,17 @@ class MobileDrawer extends StatelessWidget {
             ),
             onTap: () {
               context.go('/');
+
+              Future.delayed(const Duration(milliseconds: 300), () {
+                final targetContext = ScrollService.heroKey.currentContext;
+                if (targetContext != null) {
+                  Scrollable.ensureVisible(
+                    targetContext,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              });
               Navigator.pop(context);
             },
           ),
@@ -298,6 +360,19 @@ class MobileDrawer extends StatelessWidget {
             ),
             onTap: () {
               context.go('/');
+
+              Future.delayed(const Duration(milliseconds: 300), () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  final targetContext = ScrollService.coreKey.currentContext;
+                  if (targetContext != null) {
+                    Scrollable.ensureVisible(
+                      targetContext,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                });
+              });
               Navigator.pop(context);
             },
           ),

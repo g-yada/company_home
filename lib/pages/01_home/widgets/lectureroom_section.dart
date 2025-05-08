@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:company_home/widgets/index.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -9,8 +8,8 @@ class LectureroomSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      breakpoints: ScreenBreakpoints(desktop: 1665, tablet: 800, watch: 0),
-      mobile: (context) => LectureRoom(paddingValue: 50),
+      breakpoints: ScreenBreakpoints(desktop: 1300, tablet: 850, watch: 0),
+      mobile: (context) => LectureRoom(paddingValue: 80),
       tablet: (context) => LectureRoom(paddingValue: 100),
       desktop: (context) => LectureRoom(paddingValue: 200),
     );
@@ -24,6 +23,17 @@ class LectureRoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
+    late final String deviceType;
+    if (width < 850) {
+      deviceType = 'mobile';
+    } else if (width < 1300) {
+      deviceType = 'tablet';
+    } else {
+      deviceType = 'desktop';
+    }
+
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
@@ -63,7 +73,8 @@ class LectureRoom extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 double maxWidth = constraints.maxWidth;
-                double cardWidth = 380;
+                double cardWidth =
+                    deviceType == 'mobile' ? 330 : maxWidth * 0.3;
                 return Wrap(
                   spacing: 30, // 좌우 간격
                   runSpacing: 30, // 위아래 간격
@@ -162,7 +173,10 @@ class _Card extends StatelessWidget {
           Container(
             width: double.infinity,
             alignment: Alignment.bottomRight,
-            child: WhiteButton(buttonName: '자세히 보기', path: '/djskd/sdf'),
+            child: WhiteButton(
+              buttonName: '자세히 보기',
+              path: '/business/smartclass',
+            ),
           ),
         ],
       ),

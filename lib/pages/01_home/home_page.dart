@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       scrollController: scrollController,
       children: [
         Container(key: ScrollService.heroKey, child: HeroSection()),
-        ContentSection(),
+        Container(key: ScrollService.coreKey, child: ContentSection()),
         LectureroomSection(),
         OnetouchSection(),
         AiotSection(),
