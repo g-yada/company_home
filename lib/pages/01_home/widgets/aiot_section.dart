@@ -25,7 +25,7 @@ class DesktopAIoT extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          height: 800,
+          height: 700,
           width: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -36,8 +36,8 @@ class DesktopAIoT extends StatelessWidget {
           ),
         ),
         Container(
-          height: 360,
-          padding: const EdgeInsets.fromLTRB(0, 70, 0, 10),
+          height: 320,
+          padding: const EdgeInsets.fromLTRB(0, 45, 0, 10),
           width: double.infinity,
           decoration: const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.6)),
           child: SlideInSection(
@@ -129,7 +129,7 @@ class MobileAIoT extends StatelessWidget {
           child: SlideInSection(
             children: [
               Text(
-                '인공지능 & 사물인터넷 연구·개발',
+                '인공지능 & 사물인터넷\n연구·개발',
                 style: TextStyle(
                   fontSize: 38,
                   fontFamily: 'Paperlogy',

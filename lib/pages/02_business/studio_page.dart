@@ -1,3 +1,4 @@
+import 'package:company_home/pages/02_business/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:company_home/widgets/index.dart';
 
@@ -9,7 +10,9 @@ class StudioPage extends StatelessWidget {
     return AppLayout(
       children: [
         const SectionTitle(sectionTitle: '사업분야', selectedSub: '스튜디오'),
-        Container(height: 1000, width: double.infinity),
+        StudioIntro(),
+        StudioConvergence(),
+        StudioEach(),
         Footer(),
       ],
     );

@@ -8,7 +8,7 @@ class DigitaltwinSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      breakpoints: ScreenBreakpoints(desktop: 1400, tablet: 1000, watch: 0),
+      breakpoints: ScreenBreakpoints(desktop: 1600, tablet: 1200, watch: 0),
       mobile: (context) => MobileDtwin(),
       tablet: (context) => TabletDtwin(),
       desktop: (context) => DesktopDtwin(),
@@ -28,7 +28,7 @@ class DesktopDtwin extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/img/digitalTwin.webp'),
+          image: AssetImage('assets/img/digital_twin_s.webp'),
           fit: BoxFit.fitHeight,
           scale: 1.5,
           alignment: Alignment(0.8, 0),
@@ -86,14 +86,14 @@ class TabletDtwin extends StatelessWidget {
     return Container(
       height: 600,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 120),
+      padding: const EdgeInsets.symmetric(horizontal: 60),
       decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
-          image: AssetImage('assets/img/digitalTwin.webp'),
-          fit: BoxFit.cover,
+          image: AssetImage('assets/img/digital_twin_s.webp'),
+          fit: BoxFit.fitHeight,
           scale: 1.5,
-          alignment: Alignment(0.85, 0),
+          alignment: Alignment(1, 0),
         ),
       ),
       alignment: Alignment.center,
@@ -155,7 +155,7 @@ class MobileDtwin extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-              image: AssetImage('assets/img/digitalTwin.webp'),
+              image: AssetImage('assets/img/digital_twin_s.webp'),
               fit: BoxFit.cover,
               alignment: Alignment.center,
             ),
@@ -172,26 +172,22 @@ class MobileDtwin extends StatelessWidget {
           alignment: Alignment.center,
           child: SlideInSection(
             children: [
-              Text.rich(
-                TextSpan(
-                  text: '디지털 트윈',
-                  style: TextStyle(
-                    fontSize: 38,
-                    fontFamily: 'Paperlogy',
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFFD4373C),
-                  ),
-                  children: [
-                    TextSpan(
-                      text: '\n시뮬레이션 설계',
-                      style: TextStyle(
-                        fontSize: 38,
-                        fontFamily: 'Paperlogy',
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+              Text(
+                '디지털 트윈',
+                style: TextStyle(
+                  fontSize: 38,
+                  fontFamily: 'Paperlogy',
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFD4373C),
+                ),
+              ),
+              Text(
+                '시뮬레이션 설계',
+                style: TextStyle(
+                  fontSize: 38,
+                  fontFamily: 'Paperlogy',
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 16),

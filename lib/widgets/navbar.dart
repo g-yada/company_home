@@ -388,9 +388,8 @@ class MobileDrawer extends StatelessWidget {
             ),
             children: [
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '스튜디오',
+                  '   스튜디오',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
@@ -404,9 +403,8 @@ class MobileDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '첨단강의실',
+                  '   첨단강의실',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
@@ -420,9 +418,8 @@ class MobileDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '복합학습공간',
+                  '   복합학습공간',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
@@ -436,9 +433,8 @@ class MobileDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '지역혁신플랫폼',
+                  '   지역혁신플랫폼',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
@@ -480,9 +476,8 @@ class MobileDrawer extends StatelessWidget {
             ),
             children: [
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '회사개요',
+                  '   회사개요',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
@@ -496,9 +491,8 @@ class MobileDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '포트폴리오',
+                  '   포트폴리오',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
@@ -512,9 +506,8 @@ class MobileDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                tileColor: const Color.fromARGB(255, 255, 240, 240),
                 title: const Text(
-                  '오시는길',
+                  '   오시는길',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Paperlogy',
