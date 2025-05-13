@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:company_home/widgets/index.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:company_home/common/scroll_service.dart';
+import 'package:go_router/go_router.dart';
 
 class LectureroomSection extends StatelessWidget {
   const LectureroomSection({super.key});
@@ -86,6 +88,7 @@ class LectureRoom extends StatelessWidget {
                       alignmentX: -0.7,
                       cardImage: 'assets/img/hyflex.webp',
                       cardWidth: cardWidth,
+                      targetKey: ScrollService.hyflexKey,
                     ),
                     _Card(
                       cardTitle: 'PBL',
@@ -93,6 +96,7 @@ class LectureRoom extends StatelessWidget {
                       alignmentX: -0.3,
                       cardImage: 'assets/img/pbl.webp',
                       cardWidth: cardWidth,
+                      targetKey: ScrollService.pblKey,
                     ),
                     _Card(
                       cardTitle: 'CODING',
@@ -100,6 +104,7 @@ class LectureRoom extends StatelessWidget {
                       alignmentX: 0,
                       cardImage: 'assets/img/coding.webp',
                       cardWidth: cardWidth,
+                      targetKey: ScrollService.codingKey,
                     ),
                   ],
                 );
@@ -118,6 +123,7 @@ class _Card extends StatelessWidget {
   final double alignmentX;
   final bool isTitleColorWhite;
   final double cardWidth;
+  final GlobalKey targetKey;
 
   const _Card({
     required this.cardTitle,
@@ -125,6 +131,7 @@ class _Card extends StatelessWidget {
     required this.alignmentX,
     required this.isTitleColorWhite,
     required this.cardWidth,
+    required this.targetKey,
     super.key,
   });
 
@@ -176,6 +183,19 @@ class _Card extends StatelessWidget {
             child: WhiteButton(
               buttonName: '자세히 보기',
               path: '/business/smartclass',
+              onTap: () {
+                context.go('/business/smartclass');
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  final targetContext = targetKey.currentContext;
+                  if (targetContext != null) {
+                    Scrollable.ensureVisible(
+                      targetContext,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                });
+              },
             ),
           ),
         ],

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:company_home/widgets/index.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class StudioIntro extends StatelessWidget {
-  const StudioIntro({super.key});
+class SmartClassIntro extends StatelessWidget {
+  const SmartClassIntro({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class StudioIntro extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '―  촬영 공간, 그 이상의 경험  ― ',
+          '―  학습의 공간을 미래로 연결하다  ― ',
           style: TextStyle(
             fontSize: getValueForScreenType(
               context: context,
@@ -118,7 +118,7 @@ class StudioIntro extends StatelessWidget {
         SizedBox(height: 12),
         Text.rich(
           TextSpan(
-            text: '고품질 콘텐츠 제작을 위한 ',
+            text: '변화하는 교육환경에 최적화된 ',
             style: TextStyle(
               fontSize: getValueForScreenType(
                 context: context,
@@ -132,7 +132,7 @@ class StudioIntro extends StatelessWidget {
             ),
             children: [
               TextSpan(
-                text: '올인원 스튜디오 ',
+                text: '\n첨단 스마트 강의실 ',
                 style: TextStyle(
                   fontSize: getValueForScreenType(
                     context: context,
@@ -168,19 +168,12 @@ class StudioIntro extends StatelessWidget {
 
   Widget _buildDescription(BuildContext context) {
     return Text(
-      '''NDI(Network Device Interface) 기술을 기반으로
-영상과 음향 신호를 네트워크를 통해 실시간으로 전송하고 제어할 수 있도록 구성해드립니다.
-이를 통해 복잡한 케이블 연결 없이도 고화질의 콘텐츠 제작이 가능하며,
-전체 제작 과정을 어디서든 실시간으로 확인할 수 있습니다.
+      '''강의실은 이제 단순한 지식 전달의 공간이 아닌, 소통과 협업을 돕는 공간이 되어야 합니다.
 
-IoT 콘트롤러를 통해 카메라, 조명 등 주요 장비를 원격으로 제어할 수 있고,
-출연자와 제작자 간의 쌍방향 촬영도 지원됩니다.
+MDK는 다양한 학습/수업 방식에 대응할 수 있는 맞춤형 첨단 교육공간을 설계·구축해드립니다.
 
-3D 영상 합성 기능을 탑재하여 가상 배경이나 효과도 자유롭게 구현할 수 있습니다.
-촬영 공간은 크로마키 스튜디오(녹색 배경), 블랙 스튜디오(몰입감 있는 화면 연출),화이트 스튜디오(제품 및 인터뷰 촬영 등) 등
-다양하게 구성되어 있어 목적에 따라 최적의 제작 환경을 제공합니다.
-
-콘텐츠 제작뿐만 아니라 실시간 온라인 강의나 화상 세미나 등 비대면 교육 및 행사 운영도 지원하는 통합형 스튜디오를 구축합니다.''',
+각 강의실은 IoT 기반 제어 시스템을 통해 조명, 냉난방, AV 장비 등을 일괄 제어할 수 있으며,
+강의자/관리자 중심의 운영 편의성을 고려한 관리 애플리케이션이 함께 제공되어 시대의 흐름에 부합하는 미래형 강의실을 구현합니다.''',
       style: TextStyle(
         fontSize: getValueForScreenType(
           context: context,

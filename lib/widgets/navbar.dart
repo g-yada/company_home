@@ -10,7 +10,7 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      breakpoints: ScreenBreakpoints(desktop: 800, tablet: 600, watch: 0),
+      breakpoints: ScreenBreakpoints(desktop: 900, tablet: 900, watch: 0),
       mobile: (context) => MobileNav(),
       desktop: (context) => DesktopNav(),
     );
@@ -34,7 +34,7 @@ class DesktopNav extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 230),
               blurRadius: 10,
               offset: const Offset(0, 1),
             ),
@@ -42,18 +42,35 @@ class DesktopNav extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () {
                   context.go('/');
-
                   Future.delayed(const Duration(milliseconds: 300), () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                    final targetContext = ScrollService.heroKey.currentContext;
+                    if (targetContext != null) {
+                      Scrollable.ensureVisible(
+                        targetContext,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  });
+                },
+                child: Image.asset('assets/img/logo.png', width: 120),
+              ),
+            ),
+            Row(
+              children: [
+                DesktopNavItem(
+                  label: '핵심역량',
+                  onTap: () {
+                    context.go('/');
+                    Future.delayed(const Duration(milliseconds: 300), () {
                       final targetContext =
-                          ScrollService.heroKey.currentContext;
+                          ScrollService.coreKey.currentContext;
                       if (targetContext != null) {
                         Scrollable.ensureVisible(
                           targetContext,
@@ -62,48 +79,56 @@ class DesktopNav extends StatelessWidget {
                         );
                       }
                     });
-                  });
-                }, // 로고 누르면 홈으로 이동
-                child: Image.asset('assets/img/logo.png', width: 120),
-
-                /// 회사 로고 이미지
-              ),
-            ),
-            Row(
-              children: [
-                _NavItem(
-                  label: '핵심역량',
-                  onTap: () {
-                    context.go('/');
-
-                    Future.delayed(const Duration(milliseconds: 300), () {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        final targetContext =
-                            ScrollService.coreKey.currentContext;
-                        if (targetContext != null) {
-                          Scrollable.ensureVisible(
-                            targetContext,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        }
-                      });
-                    });
                   },
                 ),
                 const SizedBox(width: 38),
-                const _NavItem(
+                DesktopNavItem(
                   label: '사업분야',
-                  path: '/business/studio',
-                  submenuItems: ['스튜디오', '첨단강의실', '복합학습공간', '지역혁신플랫폼'],
+                  onTap: () {
+                    context.go('/business/studio');
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      final targetContext =
+                          ScrollService.coreKey.currentContext;
+                      if (targetContext != null) {
+                        Scrollable.ensureVisible(
+                          targetContext,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    });
+                  },
+                  items: [
+                    NavMenuItem(label: '스튜디오', path: '/business/studio'),
+                    NavMenuItem(label: '첨단강의실', path: '/business/smartclass'),
+                    NavMenuItem(label: '복합학습공간', path: '/business/hybrid'),
+                    NavMenuItem(label: '지역혁신플랫폼', path: '/business/platform'),
+                  ],
                 ),
                 const SizedBox(width: 38),
-                const _NavItem(label: '고객지원', path: '/service'),
+                const DesktopNavItem(label: '고객지원', path: '/service'),
                 const SizedBox(width: 38),
-                const _NavItem(
+                DesktopNavItem(
                   label: '회사소개',
-                  path: '/about',
-                  submenuItems: ['회사개요', '포트폴리오', '오시는길'],
+                  onTap: () {
+                    context.go('/about');
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      final targetContext =
+                          ScrollService.coreKey.currentContext;
+                      if (targetContext != null) {
+                        Scrollable.ensureVisible(
+                          targetContext,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    });
+                  },
+                  items: [
+                    NavMenuItem(label: '회사개요', path: '/about'),
+                    NavMenuItem(label: '포트폴리오', path: '/about/portfolio'),
+                    NavMenuItem(label: '오시는길', path: '/about/contact'),
+                  ],
                 ),
               ],
             ),
@@ -114,118 +139,184 @@ class DesktopNav extends StatelessWidget {
   }
 }
 
-/// 모바일이 아닌 화면일 때 : _NavItem = 메뉴 텍스트들 : Hover 효과, 서브메뉴 출력
-class _NavItem extends StatefulWidget {
+class NavMenuItem {
+  final String label;
+  final String path;
+
+  const NavMenuItem({required this.label, required this.path});
+}
+
+class DesktopNavItem extends StatefulWidget {
   final String label;
   final String? path;
   final VoidCallback? onTap;
-  final List<String>? submenuItems;
+  final List<NavMenuItem>? items;
 
-  const _NavItem({
+  const DesktopNavItem({
     required this.label,
     this.path,
     this.onTap,
-    this.submenuItems,
+    this.items,
+    super.key,
   });
 
   @override
-  State<_NavItem> createState() => _NavItemState();
+  State<DesktopNavItem> createState() => _DesktopNavItemState();
 }
 
-class _NavItemState extends State<_NavItem> {
-  bool isHovering = false;
+class _DesktopNavItemState extends State<DesktopNavItem> {
+  final GlobalKey _menuKey = GlobalKey();
+  bool _isHovered = false;
+  OverlayEntry? _overlayEntry;
 
   @override
-  Widget build(BuildContext context) {
-    final hasSubMenu =
-        widget.submenuItems != null && widget.submenuItems!.isNotEmpty;
+  void dispose() {
+    _removeOverlay();
+    super.dispose();
+  }
 
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => isHovering = true),
-      onExit: (_) => setState(() => isHovering = false),
-      child: SizedBox(
-        height: 80 + (hasSubMenu && isHovering ? 200 : 0),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: GestureDetector(
-                onTap: () {
-                  if (widget.onTap != null) {
-                    widget.onTap!();
-                  } else if (widget.path != null) {
-                    context.go(widget.path!);
-                  }
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      widget.label,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Paperlogy',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      height: 2,
-                      width: isHovering ? 60 : 0,
-                      color: Color(0xFFD4373C),
-                      margin: const EdgeInsets.only(top: 4),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            if (hasSubMenu && isHovering)
-              Positioned(
-                top: 60,
-                left: 0,
-                child: Material(
-                  elevation: 4,
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                          widget.submenuItems!
-                              .map(
-                                (item) => GestureDetector(
-                                  onTap: () {
-                                    context.go('${widget.path}/$item');
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 4,
-                                      horizontal: 12,
-                                    ),
-                                    child: Text(
-                                      item,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: 'Paperlogy',
-                                        fontWeight: FontWeight.w500,
-                                        decoration: TextDecoration.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                    ),
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  void _showOverlay(BuildContext context) {
+    _removeOverlay();
+
+    if (widget.items == null || widget.items!.isEmpty) return;
+
+    final RenderBox renderBox =
+        _menuKey.currentContext!.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    _overlayEntry = OverlayEntry(
+      builder:
+          (context) => Positioned(
+            top: position.dy + renderBox.size.height,
+            left: position.dx,
+            child: MouseRegion(
+              onEnter: (_) => setState(() => _isHovered = true),
+              onExit: (_) => setState(() => _isHovered = false),
+              child: Material(
+                elevation: 4,
+                child: Container(
+                  width: 160,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children:
+                        widget.items!
+                            .map(
+                              (item) => _SubmenuItem(
+                                item: item,
+                                onTap: () {
+                                  context.go(item.path);
+                                  setState(() => _isHovered = false);
+                                  _removeOverlay();
+                                },
+                              ),
+                            )
+                            .toList(),
                   ),
                 ),
               ),
-          ],
+            ),
+          ),
+    );
+
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      key: _menuKey,
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) {
+        setState(() => _isHovered = true);
+        _showOverlay(context);
+      },
+      onExit: (_) {
+        setState(() => _isHovered = false);
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (!_isHovered) {
+            _removeOverlay();
+          }
+        });
+      },
+      child: GestureDetector(
+        onTap: () {
+          if (widget.onTap != null) {
+            widget.onTap!();
+          } else if (widget.path != null) {
+            context.go(widget.path!);
+          }
+        },
+        child: Container(
+          height: 80,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.label,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Paperlogy',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                height: 2,
+                width: _isHovered ? 60 : 0,
+                margin: const EdgeInsets.only(top: 4),
+                color: const Color(0xFFD4373C),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SubmenuItem extends StatefulWidget {
+  final NavMenuItem item;
+  final VoidCallback onTap;
+
+  const _SubmenuItem({required this.item, required this.onTap});
+
+  @override
+  State<_SubmenuItem> createState() => _SubmenuItemState();
+}
+
+class _SubmenuItemState extends State<_SubmenuItem> {
+  bool isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => isHovered = true),
+      onExit: (_) => setState(() => isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          width: double.infinity,
+          color: isHovered ? Colors.grey.withOpacity(0.1) : Colors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Text(
+            widget.item.label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontFamily: 'Paperlogy',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
     );

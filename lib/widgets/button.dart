@@ -36,13 +36,19 @@ class RedButton extends StatelessWidget {
 class WhiteButton extends StatelessWidget {
   final String buttonName;
   final String path;
+  final VoidCallback? onTap;
 
-  const WhiteButton({required this.buttonName, required this.path, super.key});
+  const WhiteButton({
+    required this.buttonName,
+    required this.path,
+    this.onTap,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => context.go(path),
+      onPressed: onTap ?? () => context.go(path),
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

@@ -1,5 +1,7 @@
+import 'package:company_home/pages/02_business/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:company_home/widgets/index.dart';
+import 'package:company_home/common/scroll_service.dart';
 
 class SmartClassroomPage extends StatelessWidget {
   const SmartClassroomPage({super.key});
@@ -9,8 +11,11 @@ class SmartClassroomPage extends StatelessWidget {
     return AppLayout(
       children: [
         const SectionTitle(sectionTitle: '사업분야', selectedSub: '첨단강의실'),
-        Container(height: 1000, width: double.infinity),
-        Footer(),
+        const SmartClassIntro(),
+        SmartClassHyflex(key: ScrollService.hyflexKey),
+        SmartClassPbl(key: ScrollService.pblKey),
+        SmartClassCoding(key: ScrollService.codingKey),
+        const Footer(),
       ],
     );
   }
