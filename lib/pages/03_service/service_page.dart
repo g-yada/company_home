@@ -9,9 +9,9 @@ class ServicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppLayout(
       children: const [
-        SizedBox(height: 100),
+        SizedBox(height: 50),
         ServiceForm(),
-        SizedBox(height: 100),
+        SizedBox(height: 50),
         Footer(),
       ],
     );
